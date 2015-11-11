@@ -82,8 +82,7 @@ public class ClientHandler implements Runnable {
 	static void loadData(String certificateTransparencyIp, String CertificateCAPath, String PrivateKeyCAPath,
 			String organizationUnit, String organization, String country, String state, String city) {
 		certificateAuthorityCertificate = loadCaCertificate(CertificateCAPath);
-		certificateAuthorityPrivateKey = readPrivateKey(PrivateKeyCAPath);
-		
+		certificateAuthorityPrivateKey = readPrivateKey(PrivateKeyCAPath);	
 		if(certificateAuthorityCertificate==null || certificateAuthorityPrivateKey==null )
 			return;
 
@@ -336,16 +335,8 @@ public class ClientHandler implements Runnable {
 		    final	Certificate[] smimeCertificate1 = new Certificate[2];
 	    	smimeCertificate1[0] =encryptionChainCertificate.get(0) ;
 		    smimeCertificate1[1] = encryptionChainCertificate.get(1);
-	
-
-		    try {
-				writeCertificateToFile(smimeCertificate,"test1.pem");
-				writeCertificateToFile(smimeCertificate1,"test2.pem");
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
+			writeCertificateToFile(smimeCertificate,"test1.pem");
+			writeCertificateToFile(smimeCertificate1,"test2.pem");		
 			JSONObject jsonSMIMECertificate = encodeCertificates(encryptionChainCertificate, signatureChainCertificate,email);
 			byte[] response=postCertificateToLogServer(jsonSMIMECertificate.toJSONString());
 			DataOutputStream dataOutputStream = new DataOutputStream(output);
@@ -356,6 +347,8 @@ public class ClientHandler implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
