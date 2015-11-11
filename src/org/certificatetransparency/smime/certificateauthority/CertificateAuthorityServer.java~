@@ -33,8 +33,8 @@ public class CertificateAuthorityServer implements Runnable {
 	public static void main(String arg[]) {
 		CertificateAuthorityServer caServer = new CertificateAuthorityServer(Integer.parseInt("9999"));
 		System.out.println("server is running on port 9999");
-		ClientHandler.loadData("localhost", "ca3.pem",
-				"pkcs8_key3", "ITSecurity", "uni-Bonn", "DE", "NRW", "Bonn");
+		ClientHandler.loadData("localhost", "/home/stdadmin/cacert/ca3.pem",
+				"/home/stdadmin/cacert/pkcs8_key3", "ITSecurity", "uni-Bonn", "DE", "NRW", "Bonn");
 		new Thread(caServer).start();
 	}
 }
